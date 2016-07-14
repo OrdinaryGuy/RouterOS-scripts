@@ -1,13 +1,14 @@
 #### Modify these values to match your requirements ####
  
 #Your email address to receive the backups
-:local toemail "_@itguide.ge"
+:local toemail "RECEPIENT"
  
 #The From address (you can use your own address if you want)
-:local fromemail "inbox@itguide.ge"
+#:local fromemail [/system identity get name];:set fromemail "$fromemail@DOMAIN.COM"
+:local fromemail $toemail
  
 #A mail server your machines can send through
-:local emailserver "mail.itguide.ge"
+:local emailserver "MAILSERVER-ADDRESS"
  
 ############## Don’t edit below this line ##############
  
@@ -40,10 +41,10 @@
  
 #email copies
 :log info "Emailing backups"
-/tool e-mail send to=$"toemail" from=$"fromemail" server=[:resolve $emailserver] port=25 subject="[Config Backup] $sysname $time" file=$textfilename
+/tool e-mail send to=$"toemail" from=$"fromemail" subject="[Config Text Backup] $sysname $time" file=$textfilename
 #Send as different subjects to force GMail to treat as new message thread.
 :local time [/system clock get time]
-/tool e-mail send to=$"toemail" from=$"fromemail" server=[:resolve $emailserver] port=25 subject="[Config Backup] $sysname $time" file=$backupfilename
+/tool e-mail send to=$"toemail" from=$"fromemail" subject="[Config Binary Backup] $sysname $time" file=$backupfilename
  
 #Allow time to send
 :delay 10s
